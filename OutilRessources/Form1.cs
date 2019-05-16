@@ -45,7 +45,11 @@ namespace OutilRessources
 
             int rowCount = xlRangeListeRes.Rows.Count;
             int colCount = xlRangeListeRes.Columns.Count;
-            
+
+            //Init length column
+            dataGridViewExcel.ColumnCount = colCount;
+            dataGridViewExcel.RowCount = rowCount;
+
             dtListeRes.Columns.AddRange(new DataColumn[9] {
                 new DataColumn("intID_res", typeof(int)),
                 new DataColumn("charType_res", typeof(string)),
@@ -82,7 +86,7 @@ namespace OutilRessources
                 {
                     if (xlRangeListeRes.Cells[i, j] != null && xlRangeListeRes.Cells[i, j].Value2 != null)
                     {
-                        dataGridViewExcel.Rows[i].Cells[j].Value = xlRangeListeRes.Cells[i, j].Value2.ToString();
+                        dataGridViewExcel.Rows[i - 1].Cells[j - 1].Value = xlRangeListeRes.Cells[i, j].Value2.ToString();
                     }
                         
                 }
