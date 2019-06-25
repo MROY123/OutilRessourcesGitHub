@@ -132,20 +132,34 @@
             // 
             this.NameFile.AutoSize = true;
             this.NameFile.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NameFile.Location = new System.Drawing.Point(42, 307);
+            this.NameFile.Location = new System.Drawing.Point(25, 219);
             this.NameFile.Name = "NameFile";
             this.NameFile.Size = new System.Drawing.Size(0, 23);
             this.NameFile.TabIndex = 7;
             // 
             // dataGridViewExcel
             // 
+            this.dataGridViewExcel.AllowUserToAddRows = false;
+            this.dataGridViewExcel.AllowUserToDeleteRows = false;
+            this.dataGridViewExcel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dataGridViewExcel.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridViewExcel.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dataGridViewExcel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewExcel.Location = new System.Drawing.Point(29, 225);
+            this.dataGridViewExcel.EnableHeadersVisualStyles = false;
+            this.dataGridViewExcel.Location = new System.Drawing.Point(29, 262);
+            this.dataGridViewExcel.MultiSelect = false;
             this.dataGridViewExcel.Name = "dataGridViewExcel";
+            this.dataGridViewExcel.ReadOnly = true;
             this.dataGridViewExcel.RowTemplate.Height = 28;
-            this.dataGridViewExcel.Size = new System.Drawing.Size(1172, 420);
+            this.dataGridViewExcel.RowTemplate.ReadOnly = true;
+            this.dataGridViewExcel.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewExcel.ShowCellErrors = false;
+            this.dataGridViewExcel.ShowCellToolTips = false;
+            this.dataGridViewExcel.ShowEditingIcon = false;
+            this.dataGridViewExcel.ShowRowErrors = false;
+            this.dataGridViewExcel.Size = new System.Drawing.Size(1172, 383);
             this.dataGridViewExcel.TabIndex = 8;
+            this.dataGridViewExcel.TabStop = false;
             // 
             // DashboardForm
             // 

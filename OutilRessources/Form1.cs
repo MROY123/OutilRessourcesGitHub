@@ -6,6 +6,7 @@ using Microsoft.Office.Interop.Excel;
 using System.IO;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Collections;
 
 namespace OutilRessources
 {
@@ -50,6 +51,10 @@ namespace OutilRessources
             dataGridViewExcel.ColumnCount = colCount;
             dataGridViewExcel.RowCount = rowCount;
 
+            dtListeRes.Columns.Clear();
+            dtListeRes.Rows.Clear();
+            dtListeRes.Clear();
+
             dtListeRes.Columns.AddRange(new DataColumn[9] {
                 new DataColumn("intID_res", typeof(int)),
                 new DataColumn("charType_res", typeof(string)),
@@ -82,7 +87,7 @@ namespace OutilRessources
             for(int i = 1; i <= rowCount; i++)
             {
                 
-                for(int j = 1; j <= colCount; j++)
+                for (int j = 1; j <= colCount; j++)
                 {
                     if (xlRangeListeRes.Cells[i, j] != null && xlRangeListeRes.Cells[i, j].Value2 != null)
                     {
@@ -90,6 +95,7 @@ namespace OutilRessources
                     }
                         
                 }
+                dataGridViewExcel.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
 
             //cleanup  
@@ -110,14 +116,44 @@ namespace OutilRessources
 
         private void downloadTemplateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFileDialog savefile = new SaveFileDialog();
-            savefile.FileName = "ModeleRessources";
-            savefile.Filter = "Excel Sheet(*.xlsx)|*.xlsx|All Files(*.*)|*.*";
-            if (savefile.ShowDialog() == DialogResult.OK)
+            //SaveFileDialog savefile = new SaveFileDialog();
+            //savefile.FileName = "ModeleRessources";
+            //savefile.Filter = "Excel Sheet(*.xlsx)|*.xlsx|All Files(*.*)|*.*";
+            //if (savefile.ShowDialog() == DialogResult.OK)
+            //{
+            //    string sourcePath = System.Windows.Forms.Application.StartupPath;
+            //    File.Copy(sourcePath + "\\ModeleRessources.xlsx", savefile.FileName);
+            //}
+            string str = ConfigurationManager.ConnectionStrings["MaConnection"].ConnectionString;
+            try
             {
-                string sourcePath = System.Windows.Forms.Application.StartupPath;
-                File.Copy(sourcePath + "\\ModeleRessources.xlsx", savefile.FileName);
+                using (SqlConnection oConnection = new SqlConnection(str))
+                {
+                    SqlCommand oCommande = new SqlCommand("select * FROM RES_ListeRes", oConnection);
+
+                    SqlDataAdapter oDataAdapter = new SqlDataAdapter(oCommande);
+
+                    System.Data.DataTable oDataTable = new System.Data.DataTable();
+                    oDataAdapter.Fill(oDataTable);
+
+                    ArrayList al = new ArrayList();
+                    ArrayList ty = new ArrayList();
+                    foreach (DataColumn dc in oDataTable.Columns)
+                    {
+                        al.Add(dc.ColumnName);
+                        ty.Add(dc.DataType);
+                    }
+                    oConnection.Close();
+                }
             }
+            catch (SqlException SQL)
+            {
+                MessageBox.Show("Erreur dans la connexion SQL : " + SQL.Message);
+
+            }
+           
+            
+                
         }
 
         private void validImport_Click(object sender, EventArgs e)
